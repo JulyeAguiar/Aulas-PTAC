@@ -1,10 +1,10 @@
 
 interface Usuario {
-    id: number,
+    id?: number,
     nome: string,
     email: string,
     password: string,
-    tipo: ("cliente"|"adm")
+    tipo?: 'cliente'|'adm'
 }
 
 
