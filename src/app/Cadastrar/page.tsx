@@ -4,53 +4,56 @@ import { useState } from "react"
 import Usuario from "../../../interfaces/usuario"
 
 const Cadastrar = () => {
-    const [nome, setNome] = useState<string>()
-    const [senha, setSenha] = useState<string>()
-    const [email, setEmail] = useState<string>()
-    const [usuario, setUsuario] = useState<Usuario>({
-        nome:'',
-        email:'',
-        password:''
-    })
-    
-const alterar_Nome = (novoNome: string) => {
-    setUsuario((valoresAnteriores) => ({
-        ...valoresAnteriores,
-        nome: novoNome
-    }))
-    console.log(usuario)
-}
+  const [nome, setNome] = useState<string>()
+  const [senha, setSenha] = useState<string>()
+  const [email, setEmail] = useState<string>()
+  const [usuario, setUsuario] = useState<Usuario>({
+    nome: '',
+    email: '',
+    password: ''
+  })
 
-const alterar_Email = (novoEmail: string) => {
+  const alterar_Nome = (novoNome: string) => {
     setUsuario((valoresAnteriores) => ({
-        ...valoresAnteriores,
-        email: novoEmail
+      ...valoresAnteriores,
+      nome: novoNome
     }))
     console.log(usuario)
-}
+  }
 
-const alterar_Senha = (novaSenha: string) => {
+  const alterar_Email = (novoEmail: string) => {
     setUsuario((valoresAnteriores) => ({
-        ...valoresAnteriores,
-        password: novaSenha
+      ...valoresAnteriores,
+      email: novoEmail
     }))
     console.log(usuario)
-}
+  }
+
+  const alterar_Senha = (novaSenha: string) => {
+    setUsuario((valoresAnteriores) => ({
+      ...valoresAnteriores,
+      password: novaSenha
+    }))
+    console.log(usuario)
+  }
 
   return (
-    <div>
-      <div>
-        <h1>Cadastrar</h1>
-        <p>Nome:</p>
-        <input id="nome" type="text" value={nome} onChange={(e) => alterar_Nome(e.target.value)}></input>
 
-        <p>Email:</p>
-        <input id="email" type="text" value={email} onChange={(e) => alterar_Email(e.target.value)}></input>
+    <div className="register-container">
+      <div className="register-form">
 
-        <p>Senha:</p>
-        <input id="senha" type="text" value={senha} onChange={(e) => alterar_Senha(e.target.value)}></input>
+        <h1 className="register-title">Cadastrar</h1>
 
-        <button >Cadastrar</button>
+        <label htmlFor="nome" className="register-label">Nome:</label>
+        <input id="nome" type="text" value={nome} onChange={(e) => alterar_Nome(e.target.value)} className="register-input" />
+
+        <label htmlFor="email" className="register-label">Email:</label>
+        <input id="email" type="text" value={email} onChange={(e) => alterar_Email(e.target.value)} className="register-input" />
+
+        <label htmlFor="senha" className="register-label">Senha:</label>
+        <input id="senha" type="password" value={senha} onChange={(e) => alterar_Senha(e.target.value)} className="register-input" />
+
+        <button className="register-button">Cadastrar</button>
 
       </div>
     </div>
