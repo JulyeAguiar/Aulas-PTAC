@@ -4,7 +4,6 @@
 import Usuario from "../../interfaces/usuario"
 import Mesa from "../../interfaces/mesa"
 import { useState } from "react"
-import Cadastrar from "./Cadastrar/page"
 import { useRouter } from "next/router"
 
 
@@ -27,7 +26,7 @@ const Perfil = () => {
 
   return (
     <div>
-
+      <p>tfw</p>
     </div>
   )
 }

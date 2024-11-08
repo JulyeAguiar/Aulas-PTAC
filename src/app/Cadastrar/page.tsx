@@ -2,6 +2,7 @@
 'use client'
 import { useState } from "react"
 import Usuario from "../../../interfaces/usuario"
+import { setCookie, parseCookies } from 'nookies'
 
 const Cadastrar = () => {
   const [nome, setNome] = useState<string>()
@@ -12,6 +13,7 @@ const Cadastrar = () => {
     email: '',
     password: ''
   })
+  
 
   const alterar_Nome = (novoNome: string) => {
     setUsuario((valoresAnteriores) => ({
@@ -60,3 +62,4 @@ const Cadastrar = () => {
   )
 }
 export default Cadastrar
+
