@@ -2,9 +2,10 @@
 'use client'
 import { useState, useEffect, FormEvent } from "react"
 import Usuario from "../../../interfaces/usuario"
-import { setCookie, parseCookies } from 'nookies'
 import { ApiURL } from "../../../config"
 import { useRouter } from "next/navigation"
+import Navbar from "../../../componentes/navbar"
+import Titulo from "../../../componentes/titulo"
 
 const Cadastrar = () => {
   const [nome, setNome] = useState<string>()
@@ -18,7 +19,6 @@ const Cadastrar = () => {
     password: ''
   })
   
-
   const alterar_Nome = (novoNome: string) => {
     setUsuario((valoresAnteriores) => ({
       ...valoresAnteriores,
@@ -67,7 +67,8 @@ const Cadastrar = () => {
           console.log("tá errado aqui zé")
         }
         else{
-          router.push('/cadastrar')
+          alert("Cadastro realizado com sucesso")
+          router.push('/login')
         }
         
       }
@@ -81,28 +82,32 @@ const Cadastrar = () => {
   };
 
   return (
+    <div>
+      <Navbar titulo="Pastiamo"/>
 
-    <div className="register-container">
+    <div className="container">
           <form onSubmit={handleSubmit}>
-      <div className="register-form">
+      <div className="formulario">
 
-        <h1 className="register-title">Cadastrar</h1>
+        <Titulo titulo="Cadastro" />
 
-        <label htmlFor="nome" className="register-label">Nome:</label>
-        <input id="nome" type="text" value={nome} onChange={(e) => alterar_Nome(e.target.value)} className="register-input" />
+        <label htmlFor="nome" className="caixaInfo">Nome:</label>
+        <input id="nome" type="text" value={nome} onChange={(e) => alterar_Nome(e.target.value)} className="input" />
 
-        <label htmlFor="email" className="register-label">Email:</label>
-        <input id="email" type="text" value={email} onChange={(e) => alterar_Email(e.target.value)} className="register-input" />
+        <label htmlFor="email" className="caixaInfo">Email:</label>
+        <input id="email" type="text" value={email} onChange={(e) => alterar_Email(e.target.value)} className="input" />
 
-        <label htmlFor="senha" className="register-label">Senha:</label>
-        <input id="senha" type="password" value={senha} onChange={(e) => alterar_Senha(e.target.value)} className="register-input" />
+        <label htmlFor="senha" className="caixaInfo">Senha:</label>
+        <input id="senha" type="password" value={senha} onChange={(e) => alterar_Senha(e.target.value)} className="input" />
 
-        <button className="register-button" onSubmit={handleSubmit}>Cadastrar</button>
+        <button className="botao" onSubmit={handleSubmit}>Cadastrar</button>
 
         <a href="/login">Fazer login</a>
+        {error && <p>{error}</p>}
 
       </div>
 </form>
+    </div>
     </div>
   )
 }

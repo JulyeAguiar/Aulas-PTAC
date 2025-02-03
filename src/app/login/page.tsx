@@ -3,6 +3,8 @@ import { useState, useEffect, FormEvent } from "react"
 import { setCookie, parseCookies } from 'nookies'
 import { useRouter } from "next/navigation"
 import { ApiURL } from "../../../config"
+import Titulo from "../../../componentes/titulo"
+import Navbar from "../../../componentes/navbar"
 
 const Login = () => {
   const [password, setPassword] = useState("");
@@ -13,7 +15,7 @@ const Login = () => {
   useEffect(() => {
     const { 'restaurant-token': token } = parseCookies()
     if (token) {
-      router.push('/')
+      router.push('/mesas')
     }
   }, [router])
 
@@ -44,7 +46,7 @@ const Login = () => {
           setCookie(undefined, 'restaurant-token', token, {
             maxAge: 60 * 60 * 1 //1 hora
           })
-          router.push('/')
+          router.push('/mesas')
         }
       }
     } catch (error) {
@@ -56,24 +58,31 @@ const Login = () => {
   };
 
   return (
-    <div className="register-container">
+    <div>
+      <Navbar titulo="Pastiamo" />
+
+    <div className="container">
+      
       <form onSubmit={handleSubmit}>
-        <div className="register-form">
+        <div className="formulario">
 
-          <h1 className="register-title">Login</h1>
+        <Titulo titulo="Login" />
 
-          <label htmlFor="email" className="register-label">Email:</label>
-          <input id="email" type="text" value={email} onChange={(e) => setEmail(e.target.value)} className="register-input" />
+          <label htmlFor="email" className="caixaInfo">Email:</label>
+          <input id="email" type="text" value={email} onChange={(e) => setEmail(e.target.value)} className="input" />
 
-          <label htmlFor="senha" className="register-label">Senha:</label>
-          <input id="senha" type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="register-input" />
+          <label htmlFor="senha" className="caixaInfo">Senha:</label>
+          <input id="senha" type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="input" />
 
-          <button className="register-button" onSubmit={handleSubmit}>Login</button>
-
+          <button className="botao" onSubmit={handleSubmit}>Login</button>
+         
           <a href="/cadastrar">Crie uma conta</a>
           {error && <p>{error}</p>}
+
+
         </div>
       </form>
+    </div>
     </div>
   )
 }
