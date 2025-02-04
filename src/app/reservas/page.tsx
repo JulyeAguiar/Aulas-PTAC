@@ -1,197 +1,161 @@
-// "use client"
+'use client';
 
-// import { ChangeEvent, useEffect, useState } from "react";
+import { useState, useEffect, FormEvent } from 'react';
+import { ApiURL } from '../../../config';
+import Navbar from '../../../componentes/navbar';
+import Titulo from '../../../componentes/titulo';
+import Mesa from '../../../interfaces/mesa';
+import styles from '../../../css/mesas.module.css';
+import { parseCookies } from 'nookies';
 
-// type MesasType = {
-//   id:  number,
-//   codigo: string,
-//   n_lugares: number
-// }
+const ReservarMesas = () => {
+  const [mesas, setMesas] = useState<Mesa[]>([]); // Mesas obtidas da API
+  const [selectedMesa, setSelectedMesa] = useState<Mesa | null>(null); // Mesa selecionada
+  const [nPessoas, setNPessoas] = useState<number | string>(''); // Número de pessoas
+  const [dataReserva, setDataReserva] = useState<string>(''); // Data da reserva
+  const [error, setError] = useState<string | null>(null); // Mensagens de erro
+  const [mensagem, setMensagem] = useState<string>(''); // Mensagem de sucesso
 
-// export default function Reservas() {
-//   const [mesas, setMesas] = useState<MesasType[]>([])
-//   useEffect(() => {
+  // Função para buscar as mesas disponíveis via API
+  const fetchMesas = async () => {
+    try {
+      const response = await fetch(`${ApiURL}/mesa`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
 
-//     async function fetchData(){
-//       const response = await fetch('http://localhost:3333/reservas')
-//       const data = await response.json()
-//       setMesas(data.mesas)
-//     }
+      if (!response.ok) {
+        throw new Error('Erro ao buscar as mesas');
+      }
 
-
-//     fetchData()
-//   }, [])
-
-//   function getDateNow (){
-//     const today = new Date()
-//     return today.toISOString().split("T")[0]
-//   }
-
-
-//   const [selectedTable, setSelectedTable] = useState('');
-//   const [dateTables, setDateTables] = useState(getDateNow)
-
-//   const reservas = [{
-//     id : 1,
-//     mesa: 1,
-//     data: '2024-11-29'
-//   }, 
-//   {
-//     id : 1,
-//     mesa: 2,
-//     data: '2024-11-29'
-//   },
-//   {
-//     id : 1,
-//     mesa: 2,
-//     data: '2024-11-28'
-//   }]
-
-
-
-//   function handleChangeDate (e: ChangeEvent<HTMLInputElement>) {
-//     setDateTables(e.target.value)
-//   }
-//   return (
-//     <div className="min-h-screen bg-gray-100 flex flex-col lg:flex-row">
-//       <div className="w-full lg:w-1/4 text-white p-4 flex items-center">
-//         <div className="bg-white text-gray-800 rounded-lg shadow-lg p-4 w-full max-w-sm">
-
-//           {/*<img
-//             src="https://github.com/MrMinerin.png"
-//             alt="Usuário"
-//             className="w-24 h-24 mx-auto rounded-full border-4 border-indigo-500"
-//           />*/}
-//           <h2 className="text-center text-lg font-bold mt-4">Jéferson Carlos de Souza</h2>
-//           <p className="text-center text-gray-600">Cliente</p>
-//         </div>
-
-//         </div>
-//       <div className="w-full lg:w-1/2 bg-white p-6">
-//         <div>
-//           <h2 className="text-xl font-bold mb-4">Mesas Disponíveis</h2>
-//           <label className="flex flex-col">
-
-//                 <input
-//                   type="date"
-//                   value={dateTables}
-//                   min={getDateNow()}
-//                   className="p-2 border rounded"
-//                   onChange={handleChangeDate}
-
-//                   />
-//           </label>
-//         </div>
-
-//         <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mt-2">
-//           {mesas.map((table) => {
-//           if (reservas.find(reserva => dateTables === reserva.data && reserva.mesa === table.id)){
-//             return (
-//               <button
-//                 key={table.id}
-//                 className="p-4 text-white bg-red-500 rounded-lg hover:bg-red-600 focus:outline-none focus:bg-red-700"
-//                 onClick={() => setSelectedTable(table.codigo)}
-//               >
-      
-//                 {table.codigo}
-//               </button>
-//             )
-//           } else {
-//           return (
-//             <button
-//               key={table.id}
-//               className="p-4 text-white bg-indigo-500 rounded-lg hover:bg-indigo-600 focus:outline-none focus:bg-indigo-700"
-//               onClick={() => setSelectedTable(table.codigo)}
-//             >
-//               {table.codigo}
-//             </button>
-//           )}})}
-//         </div>
-//       </div>
-//       <div className="w-full lg:w-1/4 bg-gray-100 p-4 border-t lg:border-t-0 lg:border-l">
-//         {selectedTable ? (
-//           <div>
-//             <h2 className="text-xl font-bold mb-4">Reservar {selectedTable}</h2>
-//             <form className="flex flex-col space-y-4">
-//               <label className="flex flex-col">
-//                 Nome:
-//                 <input
-//                   type="text"
-//                   className="p-2 border rounded"
-//                   placeholder="Seu nome"
-//                 />
-//               </label>
-//               <label className="flex flex-col">
-//                 Data:
-//                 <input
-//                   type="date"
-//                   className="p-2 border rounded"
-//                 />
-//               </label>
-//               <label className="flex flex-col">
-//                 Pessoas:
-//                 <input
-//                   type="number"
-//                   max={4}
-//                   min={1}
-                
-//                   className="p-2 border rounded"
-//                 />
-//               </label>
-//               <button
-//                 type="submit"
-//                 className="bg-indigo-500 text-white p-2 rounded-lg hover:bg-indigo-600 focus:outline-none focus:bg-indigo-700"
-//               >
-//                 Confirmar Reserva
-//               </button>
-//             </form>
-//           </div>
-//         ) : (
-//           <p className="text-gray-700">Selecione uma mesa para reservar</p>
-//         )}
-//       </div>
-//     </div>
-//   );
-// }
-
-'use client'
-
-import Usuario from "../../../interfaces/usuario"
-import Mesa from "../../../interfaces/usuario"
-import { useEffect, useState } from "react"
-import { useRouter } from "next/router"
-
-
-const Perfil = () => {
-
-  const [mesas, setMesas] = useState<Mesa[]>([])
+      const data = await response.json();
+      if (data.erro) {
+        setError(data.mensagem); // Mostra erro se a API retornar erro
+      } else {
+        setMesas(data.mesas || []); // Atribui as mesas retornadas pela API
+      }
+    } catch (err) {
+      setError('Erro ao carregar as mesas. Tente novamente mais tarde.');
+    }
+  };
 
   useEffect(() => {
-    async function fetchData(){
-    const response = await fetch('http://localhost:3000/reservas')
-    const data = await response.json()
-    setMesas(data.mesas)
+    fetchMesas(); // Chama a função de busca de mesas quando o componente é montado
+  }, []);
+
+  const handleReserva = async (e: FormEvent) => {
+    e.preventDefault();
+    const { 'restaurant-token': token } = parseCookies(); // Obtém o token da reserva a partir do cookie
+
+    const numeroDePessoas = Number(nPessoas); // Converte o número de pessoas para número
+
+    // Verifica se o número de pessoas é válido
+    if (isNaN(numeroDePessoas)) {
+      setError('Por favor, insira um número válido para o número de pessoas');
+      return;
     }
-  fetchData()
-  }, [])
 
-  const [usuario, setUsuario] = useState<Usuario>({
-    id: 1,
-    nome: 'Josisvaldo da Silva',
-    email: 'josilva@getMaxListeners.com',
-    password: 'princesinhaguerreira',
-    tipo: 'cliente'
-  })
+    if (!selectedMesa) {
+      setError('Selecione uma mesa');
+      return;
+    }
 
+    if (!dataReserva) {
+      setError('Por favor, selecione uma data para a reserva');
+      return;
+    }
 
+    if (numeroDePessoas > selectedMesa.n_lugares) {
+      setError(`O número de pessoas excede a capacidade da mesa (máximo: ${selectedMesa.n_lugares})`);
+      return;
+    }
+
+    try {
+      // Envia a reserva via API
+      const response = await fetch(`${ApiURL}/reservas/novo`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          mesaId: selectedMesa.id,
+          n_pessoas: numeroDePessoas,
+          data: dataReserva, // Envia a data selecionada
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.erro) {
+        setError(data.mensagem); // Exibe erro se a API retornar erro
+      } else {
+        setMensagem('Reserva realizada com sucesso!');
+        setError(null); // Limpa qualquer erro anterior
+        setSelectedMesa(null); // Limpa a seleção de mesa
+        setNPessoas(''); // Limpa o campo de número de pessoas
+        setDataReserva(''); // Limpa o campo de data
+        // Limpa a mensagem de sucesso após 3 segundos
+        setTimeout(() => setMensagem(''), 3000);
+      }
+    } catch (err) {
+      setError('Erro ao realizar a reserva. Tente novamente mais tarde.');
+    }
+  };
 
   return (
-    <div>
-      <h1 className="titulo">Reservas</h1>
+    <div className={styles.container}>
+      <Navbar titulo="Pastiamo" />
+      <div className={styles.content}>
+        <Titulo titulo="Reservar Mesa" />
+        {error && <p className={styles.error}>{error}</p>}
+        {mensagem && <p className={styles.success}>{mensagem}</p>}
 
+        <div className={styles.grid}>
+          {mesas.map((mesa) => (
+            <div
+              key={mesa.id}
+              className={`${styles.mesa} ${selectedMesa?.id === mesa.id ? styles.selected : ''}`}
+              onClick={() => setSelectedMesa(mesa)} // Seleciona a mesa ao clicar
+            >
+              <h3 className={styles.mesaTitle}>Mesa {mesa.codigo}</h3>
+              <p className={styles.mesaInfo}>Número de lugares: {mesa.n_lugares}</p>
+            </div>
+          ))}
+        </div>
 
+        {selectedMesa && (
+          <div className={styles.form}>
+            <h3>Informações da Mesa {selectedMesa.codigo}</h3>
+            <form onSubmit={handleReserva}>
+              <label htmlFor="nPessoas">Número de Pessoas:</label>
+              <input
+                id="nPessoas"
+                type="number"
+                value={nPessoas}
+                onChange={(e) => setNPessoas(e.target.value)}
+                min="1"
+                max={selectedMesa.n_lugares}
+                required
+              />
 
+              <label htmlFor="dataReserva">Data da Reserva:</label>
+              <input
+                id="dataReserva"
+                type="date"
+                value={dataReserva}
+                onChange={(e) => setDataReserva(e.target.value)}
+                required
+              />
+              <button type="submit">Confirmar Reserva</button>
+            </form>
+          </div>
+        )}
+      </div>
     </div>
-  )
-}
-export default Perfil
+  );
+};
+
+export default ReservarMesas;

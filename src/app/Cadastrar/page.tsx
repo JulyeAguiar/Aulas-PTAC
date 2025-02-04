@@ -6,6 +6,7 @@ import { ApiURL } from "../../../config"
 import { useRouter } from "next/navigation"
 import Navbar from "../../../componentes/navbar"
 import Titulo from "../../../componentes/titulo"
+import Logout from "../../../componentes/logout"
 
 const Cadastrar = () => {
   const [nome, setNome] = useState<string>()
@@ -58,13 +59,12 @@ const Cadastrar = () => {
       if (response) {
 
         const data = await response.json();
-        const { erro, mensagem }= data
+        const { erro, mensagem } = data
 
         console.log(data)
 
         if (erro) {
           setError(mensagem)
-          console.log("tá errado aqui zé")
         }
         else{
           alert("Cadastro realizado com sucesso")
@@ -88,7 +88,7 @@ const Cadastrar = () => {
     <div className="container">
           <form onSubmit={handleSubmit}>
       <div className="formulario">
-
+<Logout/>
         <Titulo titulo="Cadastro" />
 
         <label htmlFor="nome" className="caixaInfo">Nome:</label>
