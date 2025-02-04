@@ -1,0 +1,92 @@
+/* Container principal */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 90px;
+    background-image: url('../css/Group\ 33.png');
+    background-size: cover; /* Ajusta a imagem de fundo */
+    min-height: 100vh; /* Garante altura total da tela */
+  }
+  
+  /* Formulário de cadastro */
+  .formulario {
+    background-color: white;
+    padding: 20px;
+    margin-top: 30px; /* Distância maior do topo */
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    width: 100%;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centraliza o conteúdo do formulário */
+  }
+  
+  .formulario h3 {
+    color: #783218;
+    margin-bottom: 15px;
+    text-align: center;
+    width: 100%;
+  }
+  
+  .formulario label {
+    font-weight: bold;
+    display: block;
+    margin-top: 10px;
+    width: 100%;
+  }
+  
+  .formulario .input {
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+    margin-top: 5px;
+    border: 1px solid #bbb;
+    border-radius: 8px;
+  }
+  
+  .formulario .botao {
+    background-color: #f25dca;
+    color: white;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s;
+    margin-top: 15px;
+    width: 100%;
+  }
+  
+  .formulario .botao:hover {
+    background-color: #cc0095;
+    transform: scale(1.05);
+  }
+  
+  /* Estilo do link para login */
+  .formulario a {
+    color: #f25dca;
+    margin-top: 15px;
+    text-align: center;
+  }
+  
+  /* Mensagens de erro */
+  .error {
+    color: #d9534f;
+    font-weight: bold;
+    margin-top: 10px;
+    animation: fadeIn 0.5s ease-in-out;
+  }
+  
+  /* Efeito de fade-in */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  

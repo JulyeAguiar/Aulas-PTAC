@@ -1,4 +1,3 @@
-
 'use client'
 import { useState, useEffect, FormEvent } from "react"
 import Usuario from "../../../interfaces/usuario"
@@ -7,6 +6,7 @@ import { useRouter } from "next/navigation"
 import Navbar from "../../../componentes/navbar"
 import Titulo from "../../../componentes/titulo"
 import Logout from "../../../componentes/logout"
+import styles from  "../../../css/forms.module.css"
 
 const Cadastrar = () => {
   const [nome, setNome] = useState<string>()
@@ -47,7 +47,6 @@ const Cadastrar = () => {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     try {
-
       const response = await fetch(`${ApiURL}/auth/cadastro`, {
         method: 'POST',
         headers: {
@@ -57,7 +56,6 @@ const Cadastrar = () => {
       })
 
       if (response) {
-
         const data = await response.json();
         const { erro, mensagem } = data
 
@@ -85,31 +83,47 @@ const Cadastrar = () => {
     <div>
       <Navbar titulo="Pastiamo"/>
 
-    <div className="container">
-          <form onSubmit={handleSubmit}>
-      <div className="formulario">
-<Logout/>
-        <Titulo titulo="Cadastro" />
+      <div className={styles.container}>
+        <form onSubmit={handleSubmit} className={styles.formulario}>
 
-        <label htmlFor="nome" className="caixaInfo">Nome:</label>
-        <input id="nome" type="text" value={nome} onChange={(e) => alterar_Nome(e.target.value)} className="input" />
+          <Titulo titulo="Cadastro" />
 
-        <label htmlFor="email" className="caixaInfo">Email:</label>
-        <input id="email" type="text" value={email} onChange={(e) => alterar_Email(e.target.value)} className="input" />
+          <label htmlFor="nome" className={styles.caixaInfo}>Nome:</label>
+          <input 
+            id="nome" 
+            type="text" 
+            value={nome} 
+            onChange={(e) => alterar_Nome(e.target.value)} 
+            className={styles.input} 
+          />
 
-        <label htmlFor="senha" className="caixaInfo">Senha:</label>
-        <input id="senha" type="password" value={senha} onChange={(e) => alterar_Senha(e.target.value)} className="input" />
+          <label htmlFor="email" className={styles.caixaInfo}>Email:</label>
+          <input 
+            id="email" 
+            type="text" 
+            value={email} 
+            onChange={(e) => alterar_Email(e.target.value)} 
+            className={styles.input} 
+          />
 
-        <button className="botao" onSubmit={handleSubmit}>Cadastrar</button>
+          <label htmlFor="senha" className={styles.caixaInfo}>Senha:</label>
+          <input 
+            id="senha" 
+            type="password" 
+            value={senha} 
+            onChange={(e) => alterar_Senha(e.target.value)} 
+            className={styles.input} 
+          />
 
-        <a href="/login">Fazer login</a>
-        {error && <p>{error}</p>}
+          <button type="submit" className={styles.botao}>Cadastrar</button>
 
+          <a href="/login">Fazer login</a>
+
+          {error && <p className={styles.error}>{error}</p>}
+        </form>
       </div>
-</form>
-    </div>
     </div>
   )
 }
-export default Cadastrar
 
+export default Cadastrar;

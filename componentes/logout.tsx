@@ -1,6 +1,7 @@
 'use client'
 import { destroyCookie } from 'nookies'
 import { useRouter } from 'next/navigation'
+import  styles  from "../css/navbar.module.css"
 
 const Logout = () => {
   const router = useRouter()
@@ -9,19 +10,15 @@ const Logout = () => {
   const handleLogout = () => {
     // Remove o token dos cookies
     destroyCookie(undefined, 'restaurant-token')
-    
+
     // Redireciona para a página de login após logout
     router.push('/login')
   }
 
   return (
-    <div>
-      <div className="container">
-        <button onClick={handleLogout} className="botao">
-          Deslogar
-        </button>
-      </div>
-    </div>
+
+        <button className={styles.logoutButton} onClick={handleLogout}>Deslogar</button>
+
   )
 }
 

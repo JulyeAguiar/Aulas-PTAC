@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation"
 import { ApiURL } from "../../../config"
 import Titulo from "../../../componentes/titulo"
 import Navbar from "../../../componentes/navbar"
+import styles from "../../../css/forms.module.css"
 
 const Login = () => {
   const [password, setPassword] = useState("");
@@ -18,7 +19,6 @@ const Login = () => {
       router.push('/mesas')
     }
   }, [router])
-
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -44,7 +44,7 @@ const Login = () => {
         }
         else {
           setCookie(undefined, 'restaurant-token', token, {
-            maxAge: 60 * 60 * 1 //1 hora
+            maxAge: 60 * 60 * 1 // 1 hora
           })
           router.push('/mesas')
         }
@@ -61,30 +61,37 @@ const Login = () => {
     <div>
       <Navbar titulo="Pastiamo" />
 
-    <div className="container">
-      
-      <form onSubmit={handleSubmit}>
-        <div className="formulario">
+      <div className={styles.container}>
+        <form onSubmit={handleSubmit} className={styles.formulario}>
+          <Titulo titulo="Login" />
 
-        <Titulo titulo="Login" />
+          <label htmlFor="email" className={styles.caixaInfo}>Email:</label>
+          <input 
+            id="email" 
+            type="text" 
+            value={email} 
+            onChange={(e) => setEmail(e.target.value)} 
+            className={styles.input} 
+          />
 
-          <label htmlFor="email" className="caixaInfo">Email:</label>
-          <input id="email" type="text" value={email} onChange={(e) => setEmail(e.target.value)} className="input" />
+          <label htmlFor="senha" className={styles.caixaInfo}>Senha:</label>
+          <input 
+            id="senha" 
+            type="password" 
+            value={password} 
+            onChange={(e) => setPassword(e.target.value)} 
+            className={styles.input} 
+          />
 
-          <label htmlFor="senha" className="caixaInfo">Senha:</label>
-          <input id="senha" type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="input" />
+          <button type="submit" className={styles.botao}>Login</button>
 
-          <button className="botao" onSubmit={handleSubmit}>Login</button>
-         
-          <a href="/cadastrar">Crie uma conta</a>
-          {error && <p>{error}</p>}
+          <a href="/cadastrar" className={styles.link}>Crie uma conta</a>
 
-
-        </div>
-      </form>
-    </div>
+          {error && <p className={styles.error}>{error}</p>}
+        </form>
+      </div>
     </div>
   )
 }
-export default Login
 
+export default Login;

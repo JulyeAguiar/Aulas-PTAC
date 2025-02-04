@@ -1,67 +1,276 @@
-/* Container geral */
+/* Container principal */
 .container {
-    font-family: 'Arial', sans-serif;
-    background-color: #f4f4f9;
-    min-height: 100vh;
-    padding: 20px;
-  }
-  
-  /* Área principal */
-  .content {
-    padding: 20px;
-    text-align: center;
-  }
-  
-  /* Estilo para mensagens de erro */
-  .error {
-    color: red;
-    font-weight: bold;
-    margin-bottom: 20px;
-    animation: fadeIn 1s ease-in-out;
-  }
-  
-  /* Grid para as mesas */
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 20px;
-    margin-top: 30px;
-  }
-  
-  .mesa {
-    background-color: #fff;
-    border-radius: 8px;
-    padding: 20px;
-    border: 1px solid #e1e1e1;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 90px;
+  background-image: url('../css/Group\ 33.png');
+}
 
-  .mesa:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
-  }
-  
+/* Área de conteúdo */
+.content {
+  width: 100%;
+  max-width: 900px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Alinha tudo no centro */
+}
 
-  .mesaTitle {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: #333;
-    margin-bottom: 10px;
-  }
-  
+/* Estilização do título */
+.cor_titulo {
+  color: #f25dca;
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
 
-  .mesaInfo {
-    font-size: 1rem;
-    color: #555;
+/* Mensagem de erro */
+.error {
+  color: #d9534f;
+  font-weight: bold;
+  margin-top: 10px;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Mensagem de sucesso */
+.success {
+  color: #4caf50;
+  font-weight: bold;
+  margin-top: 10px;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Grid de reservas */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+  width: 100%;
+}
+
+/* Card de reserva */
+.mesa {
+  background-color: #ffcef2;
+  border-radius: 15px;
+  padding: 20px;
+  border: 1px solid #e1e1e1;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
+  cursor: pointer;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.mesa:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+
+/* Estilização para a mesa selecionada */
+.selected {
+  border: 3px solid #f25dca;
+  background-color: #f8aee0;
+  box-shadow: 0 0 15px rgba(242, 93, 202, 0.5);
+}
+
+/* Título do card */
+.mesaTitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #783218;
+  margin-bottom: 10px;
+}
+
+/* Informações do card */
+.mesaInfo {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+/* Estilização do formulário */
+.form {
+  background-color: white;
+  padding: 20px;
+  margin-top: 30px; /* Distância maior do grid */
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  width: 100%;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Título do formulário */
+.form h3 {
+  color: #783218;
+  margin-bottom: 15px;
+  text-align: center;
+  width: 100%;
+}
+
+.form label {
+  font-weight: bold;
+  display: block;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.form input {
+  width: 100%;
+  padding: 8px;
+  font-size: 16px;
+  margin-top: 5px;
+  border: 1px solid #bbb;
+  border-radius: 8px;
+}
+
+.form button {
+  background-color: #f25dca;
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: 0.3s;
+  margin-top: 15px;
+  width: 100%;
+}
+
+.form button:hover {
+  background-color: #d946b1;
+  transform: scale(1.05);
+}
+
+/* Efeito de fade-in */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
   }
-  
-  @keyframes fadeIn {
-    0% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
+  to {
+    opacity: 1;
   }
-  
+}
+
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 90px;
+  background-image: url('../css/Group\ 33.png');
+}
+
+.content {
+  width: 100%;
+  max-width: 900px;
+  text-align: center;
+}
+
+.error {
+  color: #d9534f;
+  font-weight: bold;
+  margin-top: 10px;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.formulario {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.label {
+  font-size: 16px;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.input {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #bbb;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  width: 200px;
+}
+
+.botaoFiltrar {
+  background-color: #f25dca;
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: 0.3s;
+}
+
+.botaoFiltrar:hover {
+  background-color: #d946b1;
+  transform: scale(1.05);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.mesa {
+  background-color: #ffcef2;
+  border-radius: 15px;
+  padding: 20px;
+  border: 1px solid #e1e1e1;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
+  cursor: pointer ;
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.selected {
+  border: 3px solid #f25dca;
+  background-color: #f8aee0;
+  box-shadow: 0 0 15px rgba(242, 93, 202, 0.5);
+}
+
+.mesaTitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #783218;
+  margin-bottom: 10px;
+}
+
+.mesaInfo {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+.noResults {
+  font-size: 1.2rem;
+  color: #999;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

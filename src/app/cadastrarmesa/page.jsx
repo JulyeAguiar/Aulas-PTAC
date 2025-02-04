@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation"
 import Navbar from "../../../componentes/navbar"
 import Titulo from "../../../componentes/titulo"
 import { ApiURL } from "../../../config"
+import styles from "../../../css/forms.module.css"
 
 const CadastrarMesa = () => {
   const [codigo, setCodigo] = useState("")
@@ -59,24 +60,45 @@ const CadastrarMesa = () => {
   }
 
   return (
-    <div>
+
+      <div className={styles.container}>
       <Navbar titulo="Pastiamo" />
-      <div className="container">
+      <div className={styles.content}>
         <form onSubmit={handleSubmit}>
-          <div className="formulario">
+          <div className={styles.formulario}>
             <Titulo titulo="Cadastro de Mesa" />
-            <label htmlFor="codigo" className="caixaInfo">Código:</label>
-            <input id="codigo" type="text" value={codigo} onChange={(e) => setCodigo(e.target.value)} className="input" maxLength={3} required />
+            <label htmlFor="codigo" className={styles.label}>Código:</label>
+            <input 
+              id="codigo" 
+              type="text" 
+              value={codigo} 
+              onChange={(e) => setCodigo(e.target.value)} 
+              className={styles.input} 
+              maxLength={3} 
+              required 
+            />
 
-            <label htmlFor="nLugares" className="caixaInfo">Número de Lugares:</label>
-            <input id="nLugares" type="number" value={nLugares} onChange={(e) => setNLugares(e.target.value)} className="input" min={1} max={10} required />
+            <label htmlFor="nLugares" className={styles.label}>Número de Lugares:</label>
+            <input 
+              id="nLugares" 
+              type="number" 
+              value={nLugares} 
+              onChange={(e) => setNLugares(e.target.value)} 
+              className={styles.input} 
+              min={1} 
+              max={10} 
+              required 
+            />
 
-            <button className="botao" type="submit">Cadastrar Mesa</button>
-            {mensagem && <p className={erro ? "erro" : "sucesso"}>{mensagem}</p>}
+            <button className={styles.botao} type="submit">Cadastrar Mesa</button>
+            {mensagem && <p className={erro ? styles.erro : styles.sucesso}>{mensagem}</p>}
           </div>
         </form>
       </div>
     </div>
+ 
+
+
   )
 }
 
