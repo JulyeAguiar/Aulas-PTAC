@@ -15,7 +15,7 @@ const MinhasReservas = () => {
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState(true);
 
-    // Hook para verificar o token e carregar as reservas
+    //verificar o token e carregar as reservas
     useEffect(() => {
         const { 'restaurant-token': token } = parseCookies();
 
@@ -33,7 +33,7 @@ const MinhasReservas = () => {
                         'Authorization': `Bearer ${token}`,
                     },
                 });
-
+        
                 if (!response.ok) {
                     if (response.status === 401) {
                         setError('Sessão expirada. Faça login novamente.');
@@ -42,35 +42,35 @@ const MinhasReservas = () => {
                         throw new Error('Erro ao buscar as reservas');
                     }
                 }
-
+        
                 const data = await response.json();
-
+        
                 if (data.erro) {
                     setError(data.mensagem);
                 } else {
-                    setReservas(data.reservas); // Atualiza as reservas
+                    setReservas(data.reservas);
                 }
             } catch (err) {
                 setError('Erro ao carregar as reservas. Tente novamente mais tarde.');
             } finally {
-                setLoading(false);
+                setLoading(false); 
             }
         };
-
+        
         fetchReservas();
     }, [router]);
 
-    // Função para cancelar (deletar) uma reserva
+    // Função para cancelar uma reserva
     const cancelarReserva = async (id: number) => {
         try {
             const { 'restaurant-token': token } = parseCookies();
             const response = await fetch(`${ApiURL}/reservas`, {
-                method: 'DELETE', // Deletando a reserva
+                method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`,
                 },
-                body: JSON.stringify({ reservaId: id }), // Passando o ID da reserva para o backend
+                body: JSON.stringify({ reservaId: id }),
             });
 
             const data = await response.json();
@@ -78,7 +78,7 @@ const MinhasReservas = () => {
             if (data.erro) {
                 setError(data.mensagem);
             } else {
-                // Atualiza a lista de reservas após o cancelamento
+                // atualiza a lista de reservas após a reserva ser cancelada
                 setReservas((prevReservas) =>
                     prevReservas.filter((reserva) => reserva.id !== id)
                 );
@@ -90,34 +90,37 @@ const MinhasReservas = () => {
     };
 
     return (
-        <div className={styles.container}>
-            <Navbar titulo="Minhas Reservas" />
-            <div className={styles.content}>
-                <Titulo titulo="Minhas Reservas" />
-                {error && <p className={styles.error}>{error}</p>}
-                <div className={styles.grid}>
-                    {loading ? (
-                        <p>Carregando...</p> // Exibe mensagem enquanto as reservas estão sendo carregadas
-                    ) : reservas.length === 0 ? (
-                        <p>Nenhuma reserva encontrada.</p>
-                    ) : (
-                        reservas.map((reserva) => (
-                            <div key={reserva.id} className={styles.mesa}>
-                                <h3 className={styles.mesaTitle}>Reserva {reserva.mesa_id}</h3>
-                                <p className={styles.mesaInfo}>
-                                    Número de pessoas: {reserva.n_pessoas} | Data: {new Date(reserva.data).toLocaleString()}
-                                </p>
-                                {reserva.status && (
-                                    <button
-                                        onClick={() => cancelarReserva(reserva.id)} // Aqui a reserva será excluída
-                                        className={styles.botaoCancelar}
-                                    >
-                                        Cancelar Reserva
-                                    </button>
-                                )}
-                            </div>
-                        ))
-                    )}
+        <div className={styles.body}>
+            <div className={styles.container}>
+                <Navbar titulo="Minhas Reservas" />
+                <div className={styles.content}>
+                    <Titulo titulo="Minhas Reservas" />
+                    {error && <p className={styles.error}>{error}</p>}
+                    <div className={styles.grid}>
+                        {loading ? (
+                            // mostra mensagem enquanto as reservas estão sendo carregadas
+                            <p>Carregando...</p>
+                        ) : reservas.length === 0 ? (
+                            <p>Nenhuma reserva encontrada.</p>
+                        ) : (
+                            reservas.map((reserva) => (
+                                <div key={reserva.id} className={styles.mesa}>
+                                    <h3 className={styles.mesaTitle}>Reserva {reserva.mesa_id}</h3>
+                                    <p className={styles.mesaInfo}>
+                                        Número de pessoas: {reserva.n_pessoas} | Data: {new Date(reserva.data).toLocaleString()}
+                                    </p>
+                                    {reserva.status && (
+                                        <button
+                                            onClick={() => cancelarReserva(reserva.id)}
+                                            className={styles.botaoCancelar}
+                                        >
+                                            Cancelar Reserva
+                                        </button>
+                                    )}
+                                </div>
+                            ))
+                        )}
+                    </div>
                 </div>
             </div>
         </div>

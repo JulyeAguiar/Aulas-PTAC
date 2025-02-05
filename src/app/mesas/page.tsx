@@ -1,17 +1,17 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { ApiURL } from '../../../config';
-import Navbar from '../../../componentes/navbar';
-import Titulo from '../../../componentes/titulo';
-import Mesa from '../../../interfaces/mesa';
-import styles from '../../../css/mesas.module.css';
+import { useState, useEffect } from 'react'
+import { ApiURL } from '../../../config'
+import Navbar from '../../../componentes/navbar'
+import Titulo from '../../../componentes/titulo'
+import Mesa from '../../../interfaces/mesa'
+import styles from '../../../css/mesas.module.css'
 
 const Mesas = () => {
-    const [mesas, setMesas] = useState<Mesa[]>([]);
-    const [filteredMesas, setFilteredMesas] = useState<Mesa[]>([]); // Mesas filtradas por data
-    const [dataReserva, setDataReserva] = useState<string>(''); // Estado para armazenar a data da reserva
-    const [error, setError] = useState<string | null>(null);
+    const [mesas, setMesas] = useState<Mesa[]>([])
+    const [filteredMesas, setFilteredMesas] = useState<Mesa[]>([])
+    const [dataReserva, setDataReserva] = useState<string>('')
+    const [error, setError] = useState<string | null>(null)
 
     // Função para buscar todas as mesas
     const fetchMesas = async () => {
@@ -39,7 +39,7 @@ const Mesas = () => {
         }
     };
 
-    // Função para buscar mesas filtradas por data
+    // Função para buscar mesas por data
     const fetchMesasPorData = async (data: string) => {
         try {
             const response = await fetch(`${ApiURL}/mesa/disponibilidade?data=${data}`, {
@@ -57,14 +57,14 @@ const Mesas = () => {
             if (dataJson.erro) {
                 setError(dataJson.mensagem);
             } else {
-                setFilteredMesas(dataJson.mesas); // Mesas filtradas pela data
+                setFilteredMesas(dataJson.mesas);
             }
         } catch (err) {
-            setError('Erro ao carregar as mesas disponíveis para a data selecionada. Tente novamente mais tarde.');
+            setError('Erro ao carregar as mesas');
         }
     };
 
-    // Função para lidar com a mudança de data no campo de input
+    // Função para resolver o problema com a data do inpurt
     const handleDataChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setDataReserva(event.target.value);
     };
@@ -72,52 +72,47 @@ const Mesas = () => {
     // Função para aplicar o filtro de data
     const handleBuscarMesas = () => {
         if (!dataReserva) {
-            setFilteredMesas(mesas); // Se não houver data selecionada, exibe todas as mesas
+            setFilteredMesas(mesas);
             setError(null);
             return;
         }
-
         fetchMesasPorData(dataReserva); // Caso haja data, busca as mesas para aquela data
     };
 
-    // Carregar todas as mesas quando o componente for montado
+    // Carregar todas as mesas quando montar o componente
     useEffect(() => {
         fetchMesas();
     }, []);
-
+    //Componente
     return (
-        <div className={styles.container}>
-            <Navbar titulo="Pastiamo" />
-            <div className={styles.content}>
-                <Titulo titulo="Mesas Disponíveis" />
-                {error && <p className={styles.error}>{error}</p>}
+        <div className={styles.body}>
+            <div className={styles.container}>
+                <Navbar titulo="Pastiamo" />
+                <div className={styles.content}>
+                    <Titulo titulo="Mesas Disponíveis" />
+                    {error && <p className={styles.error}>{error}</p>}
 
-                {/* Filtro por Data */}
-                <div className={styles.formulario}>
-                    <label htmlFor="dataReserva" className={styles.label}>Data:</label>
-                    <input
-                        type="date"
-                        value={dataReserva}
-                        onChange={handleDataChange}
-                        id="dataReserva"
-                        className={styles.input}
-                    />
-                    <button onClick={handleBuscarMesas} className={styles.botaoFiltrar}>
-                        Filtrar por Data
-                    </button>
-                </div>
 
-                <div className={styles.grid}>
-                    {filteredMesas.length === 0 ? (
-                        <p className={styles.noResults}>Nenhuma mesa disponível para a data selecionada.</p>
-                    ) : (
-                        filteredMesas.map((mesa) => (
-                            <div key={mesa.id} className={styles.mesa}>
-                                <h3 className={styles.mesaTitle}>Mesa {mesa.codigo}</h3>
-                                <p className={styles.mesaInfo}>Número de lugares: {mesa.n_lugares}</p>
-                            </div>
-                        ))
-                    )}
+                    <div className={styles.formulario}>
+                        <label htmlFor="dataReserva" className={styles.label}>Data:</label>
+                        <input type="date" value={dataReserva} onChange={handleDataChange} id="dataReserva" className={styles.input} />
+                        <button onClick={handleBuscarMesas} className={styles.botaoFiltrar}>
+                            Filtrar por Data
+                        </button>
+                    </div>
+
+                    <div className={styles.grid}>
+                        {filteredMesas.length === 0 ? (
+                            <p className={styles.noResults}>Nenhuma mesa disponível para a data selecionada.</p>
+                        ) : (
+                            filteredMesas.map((mesa) => (
+                                <div key={mesa.id} className={styles.mesa}>
+                                    <h3 className={styles.mesaTitle}>Mesa {mesa.codigo}</h3>
+                                    <p className={styles.mesaInfo}>Número de lugares: {mesa.n_lugares}</p>
+                                </div>
+                            ))
+                        )}
+                    </div>
                 </div>
             </div>
         </div>

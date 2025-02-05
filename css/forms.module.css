@@ -1,10 +1,21 @@
+.body {
+  background-image: url('../css/Group\ 33.png');
+
+  background-repeat: repeat; /* Faz a imagem se repetir */
+  background-position: top left; /* Posiciona a imagem no canto superior esquerdo */
+  background-size: auto; /* Não distorce a imagem */
+  padding: 20px; /* Ajuste conforme necessário */
+  overflow: auto; /* Garante que o conteúdo da lista não ultrapasse o tamanho da div */
+}
+
+
+
 /* Container principal */
 .container {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 90px;
-    background-image: url('../css/Group\ 33.png');
     background-size: cover; /* Ajusta a imagem de fundo */
     min-height: 100vh; /* Garante altura total da tela */
   }

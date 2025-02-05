@@ -52,13 +52,10 @@ const Login = () => {
     } catch (error) {
       console.error('Erro na requisicao', error)
     }
-
-    console.log('Email:', email);
-    console.log('Senha:', password);
   };
 
   return (
-    <div>
+    <div className={styles.body}>
       <Navbar titulo="Pastiamo" />
 
       <div className={styles.container}>
@@ -66,22 +63,10 @@ const Login = () => {
           <Titulo titulo="Login" />
 
           <label htmlFor="email" className={styles.caixaInfo}>Email:</label>
-          <input 
-            id="email" 
-            type="text" 
-            value={email} 
-            onChange={(e) => setEmail(e.target.value)} 
-            className={styles.input} 
-          />
+          <input id="email" type="text" value={email} onChange={(e) => setEmail(e.target.value)} className={styles.input} />
 
           <label htmlFor="senha" className={styles.caixaInfo}>Senha:</label>
-          <input 
-            id="senha" 
-            type="password" 
-            value={password} 
-            onChange={(e) => setPassword(e.target.value)} 
-            className={styles.input} 
-          />
+          <input id="senha" type="password" value={password} onChange={(e) => setPassword(e.target.value)} className={styles.input} />
 
           <button type="submit" className={styles.botao}>Login</button>
 
