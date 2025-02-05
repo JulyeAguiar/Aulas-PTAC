@@ -9,14 +9,14 @@ import styles from '../../../css/mesas.module.css';
 import { parseCookies } from 'nookies';
 
 const ReservarMesas = () => {
-  const [mesas, setMesas] = useState<Mesa[]>([]); // Mesas obtidas da API
-  const [selectedMesa, setSelectedMesa] = useState<Mesa | null>(null); // Mesa selecionada
-  const [nPessoas, setNPessoas] = useState<number | string>(''); // Número de pessoas
-  const [dataReserva, setDataReserva] = useState<string>(''); // Data da reserva
-  const [error, setError] = useState<string | null>(null); // Mensagens de erro
-  const [mensagem, setMensagem] = useState<string>(''); // Mensagem de sucesso
+  const [mesas, setMesas] = useState<Mesa[]>([]); 
+  const [selectedMesa, setSelectedMesa] = useState<Mesa | null>(null);
+  const [nPessoas, setNPessoas] = useState<number | string>(''); 
+  const [dataReserva, setDataReserva] = useState<string>('');
+  const [error, setError] = useState<string | null>(null);
+  const [mensagem, setMensagem] = useState<string>(''); 
 
-  // Função para buscar as mesas disponíveis via API
+  // Função para buscar as mesas disponíveis 
   const fetchMesas = async () => {
     try {
       const response = await fetch(`${ApiURL}/mesa`, {
@@ -47,7 +47,7 @@ const ReservarMesas = () => {
 
   const handleReserva = async (e: FormEvent) => {
     e.preventDefault();
-    const { 'restaurant-token': token } = parseCookies(); // Obtém o token da reserva a partir do cookie
+    const { 'restaurant-token': token } = parseCookies(); 
 
     const numeroDePessoas = Number(nPessoas); // Converte o número de pessoas para número
 
@@ -90,14 +90,14 @@ const ReservarMesas = () => {
       const data = await response.json();
 
       if (data.erro) {
-        setError(data.mensagem); // Exibe erro se a API retornar erro
+        setError(data.mensagem); 
       } else {
+        //limpa os campos
         setMensagem('Reserva realizada com sucesso!');
-        setError(null); // Limpa qualquer erro anterior
-        setSelectedMesa(null); // Limpa a seleção de mesa
-        setNPessoas(''); // Limpa o campo de número de pessoas
-        setDataReserva(''); // Limpa o campo de data
-        // Limpa a mensagem de sucesso após 3 segundos
+        setError(null); 
+        setSelectedMesa(null); 
+        setNPessoas(''); 
+        setDataReserva(''); 
         setTimeout(() => setMensagem(''), 3000);
       }
     } catch (err) {
@@ -106,53 +106,41 @@ const ReservarMesas = () => {
   };
 
   return (
-    <div className={styles.container}>
-      <Navbar titulo="Pastiamo" />
-      <div className={styles.content}>
-        <Titulo titulo="Reservar Mesa" />
-        {error && <p className={styles.error}>{error}</p>}
-        {mensagem && <p className={styles.success}>{mensagem}</p>}
+    <div className={styles.body}>
+      <div className={styles.container}>
+        <Navbar titulo="Pastiamo" />
+        <div className={styles.content}>
+          <Titulo titulo="Reservar Mesa" />
+          {error && <p className={styles.error}>{error}</p>}
+          {mensagem && <p className={styles.success}>{mensagem}</p>}
 
-        <div className={styles.grid}>
-          {mesas.map((mesa) => (
-            <div
-              key={mesa.id}
-              className={`${styles.mesa} ${selectedMesa?.id === mesa.id ? styles.selected : ''}`}
-              onClick={() => setSelectedMesa(mesa)} // Seleciona a mesa ao clicar
-            >
-              <h3 className={styles.mesaTitle}>Mesa {mesa.codigo}</h3>
-              <p className={styles.mesaInfo}>Número de lugares: {mesa.n_lugares}</p>
-            </div>
-          ))}
-        </div>
-
-        {selectedMesa && (
-          <div className={styles.form}>
-            <h3>Informações da Mesa {selectedMesa.codigo}</h3>
-            <form onSubmit={handleReserva}>
-              <label htmlFor="nPessoas">Número de Pessoas:</label>
-              <input
-                id="nPessoas"
-                type="number"
-                value={nPessoas}
-                onChange={(e) => setNPessoas(e.target.value)}
-                min="1"
-                max={selectedMesa.n_lugares}
-                required
-              />
-
-              <label htmlFor="dataReserva">Data da Reserva:</label>
-              <input
-                id="dataReserva"
-                type="date"
-                value={dataReserva}
-                onChange={(e) => setDataReserva(e.target.value)}
-                required
-              />
-              <button type="submit">Confirmar Reserva</button>
-            </form>
+          <div className={styles.grid}>
+            {mesas.map((mesa) => (
+              <div
+                key={mesa.id}
+                className={`${styles.mesa} ${selectedMesa?.id === mesa.id ? styles.selected : ''}`}
+                onClick={() => setSelectedMesa(mesa)} // Seleciona a mesa ao clicar
+              >
+                <h3 className={styles.mesaTitle}>Mesa {mesa.codigo}</h3>
+                <p className={styles.mesaInfo}>Número de lugares: {mesa.n_lugares}</p>
+              </div>
+            ))}
           </div>
-        )}
+
+          {selectedMesa && (
+            <div className={styles.form}>
+              <h3>Informações da Mesa {selectedMesa.codigo}</h3>
+              <form onSubmit={handleReserva}>
+                <label htmlFor="nPessoas">Número de Pessoas:</label>
+                <input id="nPessoas" type="number" value={nPessoas} onChange={(e) => setNPessoas(e.target.value)} min="1" max={selectedMesa.n_lugares} required />
+
+                <label htmlFor="dataReserva">Data da Reserva:</label>
+                <input id="dataReserva" type="date" value={dataReserva} onChange={(e) => setDataReserva(e.target.value)} required />
+                <button type="submit">Confirmar Reserva</button>
+              </form>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

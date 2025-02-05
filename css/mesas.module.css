@@ -1,10 +1,22 @@
+.body {
+  background-image: url('../css/Group\ 33.png');
+  background-repeat: repeat; /* Faz a imagem se repetir */
+  background-position: top left; /* Posiciona a imagem no canto superior esquerdo */
+  background-size: auto; /* Não distorce a imagem */
+  padding: 20px; /* Ajuste conforme necessário */
+  overflow: auto; /* Garante que o conteúdo da lista não ultrapasse o tamanho da div */
+}
+
+
+
+
 /* Container principal */
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 90px;
-  background-image: url('../css/Group\ 33.png');
+
 }
 
 /* Área de conteúdo */
@@ -166,7 +178,6 @@
   flex-direction: column;
   align-items: center;
   padding: 90px;
-  background-image: url('../css/Group\ 33.png');
 }
 
 .content {
@@ -273,4 +284,20 @@
   to {
     opacity: 1;
   }
+}
+
+
+.botaoCancelar {
+  text-decoration: none;
+  color: rgb(0, 0, 0);
+  font-size: 16px;
+  padding: 10px 15px;
+  border-radius: 5px;
+  background-color: #ff49d2;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.botaoCancelar:hover {
+  background-color: #ca2cad;
+  color: #d4edda;
 }

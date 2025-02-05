@@ -15,7 +15,6 @@ const Navbar: React.FC<NavProp> = () => {
     const [error, setError] = useState<string | null>(null);
     const router = useRouter();
 
-    // Verificar perfil e autenticação
     useEffect(() => {
         const fetchPerfil = async () => {
             const { 'restaurant-token': token } = parseCookies();
@@ -58,14 +57,13 @@ const Navbar: React.FC<NavProp> = () => {
             <a href="/" className={styles.logo}>Pastiamo</a>
 
             <div className={styles.links}>
-                <Logout /> 
+                <Logout />
                 <a href="/cadastrar" className={styles.navLink}>Cadastrar</a>
                 <a href="/login" className={styles.navLink}>Login</a>
                 <button className={styles.menuButton} onClick={toggleMenu}>
                     {perfil ? `Olá, ${perfil.nome}` : 'Meu Perfil'}
                 </button>
             </div>
-
 
             <div className={`${styles.menuSidebar} ${isExpanded ? styles.open : ''}`}>
                 <button className={styles.closeButton} onClick={toggleMenu}>✖</button>
@@ -74,7 +72,13 @@ const Navbar: React.FC<NavProp> = () => {
                     <div className={styles.perfilInfo}>
                         <p><strong>Nome:</strong> {perfil.nome}</p>
                         <p><strong>Email:</strong> {perfil.email}</p>
-                        <p><strong>Role:</strong> {perfil.role}</p>
+                        <p><a href="/reservas" className={styles.navLink2}>Fazer reserva</a></p>
+                        <p><a href="/minhasreservas" className={styles.navLink2}>Ver minhas reservas</a></p>
+                        <p><a href="/mesas" className={styles.navLink2}>Ver Mesas disponíveis</a></p>
+                        <p><a href="/perfil" className={styles.navLink2}>Alterar Meus Dados</a></p>
+                        <p><a href="/reservageral" className={styles.navLink3}>Ver Reservas Gerais</a></p>
+                        <p><a href="/cadastrarmesa" className={styles.navLink3}>Cadastro de Mesa</a></p>
+                        <p><a href="/usuarios" className={styles.navLink3}>Listar Usuarios</a></p>
                     </div>
                 ) : (
                     <p className={styles.error}>Usuário não autenticado</p>

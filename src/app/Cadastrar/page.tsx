@@ -80,7 +80,7 @@ const Cadastrar = () => {
   };
 
   return (
-    <div>
+    <div className={styles.body}>
       <Navbar titulo="Pastiamo"/>
 
       <div className={styles.container}>
@@ -89,31 +89,13 @@ const Cadastrar = () => {
           <Titulo titulo="Cadastro" />
 
           <label htmlFor="nome" className={styles.caixaInfo}>Nome:</label>
-          <input 
-            id="nome" 
-            type="text" 
-            value={nome} 
-            onChange={(e) => alterar_Nome(e.target.value)} 
-            className={styles.input} 
-          />
+          <input id="nome" type="text" value={nome} onChange={(e) => alterar_Nome(e.target.value)} className={styles.input} />
 
           <label htmlFor="email" className={styles.caixaInfo}>Email:</label>
-          <input 
-            id="email" 
-            type="text" 
-            value={email} 
-            onChange={(e) => alterar_Email(e.target.value)} 
-            className={styles.input} 
-          />
+          <input id="email" type="text" value={email} onChange={(e) => alterar_Email(e.target.value)} className={styles.input} />
 
           <label htmlFor="senha" className={styles.caixaInfo}>Senha:</label>
-          <input 
-            id="senha" 
-            type="password" 
-            value={senha} 
-            onChange={(e) => alterar_Senha(e.target.value)} 
-            className={styles.input} 
-          />
+          <input id="senha" type="password" value={senha} onChange={(e) => alterar_Senha(e.target.value)} className={styles.input} />
 
           <button type="submit" className={styles.botao}>Cadastrar</button>
 
